@@ -31,16 +31,31 @@ function love.load()
     fullscreen = false,
     resizabe = true
   })
+
+  love.keyboard.keysPressed = {}
 end
 
 function love.resize(width, height)
   push:resize(width, height)
 end
 
+function love.keypressed(key)
+  love.keyboard.keysPressed[key] = true
+end
+
+function love.keyboard.wasPressed(key)
+  if love.keyboard.keysPressed[key] then
+    return true
+  else
+    return false
+  end
+end
+
 function love.update(dt)
   backgroundScroll = (backgroundScroll + BACKGROUND_SCROLL_SPEED * dt) % BACKGROUND_LOOPING_POINT
   groundScroll = (groundScroll + GROUND_SCROLL_SPEED * dt) % VIRTUAL_WIDTH
   bird:update(dt)
+  love.keyboard.keysPressed = {}
 end
 
 function love.draw()
