@@ -8,6 +8,7 @@ local SCROLL_SPEED = -60
 function Pipe:init()
   self.x = VIRTUAL_WIDTH
   self.y = math.random(VIRTUAL_HEIGHT / 4, VIRTUAL_HEIGHT - 40)
+  self.width = PIPE_IMAGE:getWidth()
 end
 
 function Pipe:update(dt)
