@@ -19,7 +19,6 @@ end
 
 function Bird:update(dt)
   self.dy = self.dy + GRAVITY * dt
-  
   if love.keyboard.wasPressed('space') then
     self.dy = -FLAP_VELOCITY
   end

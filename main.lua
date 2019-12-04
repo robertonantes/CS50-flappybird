@@ -8,6 +8,7 @@ VIRTUAL_HEIGHT = 288
 
 Class = require 'class'
 require 'Bird'
+require 'Pipe'
 
 -- images
 local background = love.graphics.newImage('assets/background.png')
@@ -21,6 +22,7 @@ local GROUND_SCROLL_SPEED = 60
 local BACKGROUND_LOOPING_POINT = 413
 
 local bird = Bird()
+local pipe= Pipe()
 
 function love.load()
   love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -54,7 +56,10 @@ end
 function love.update(dt)
   backgroundScroll = (backgroundScroll + BACKGROUND_SCROLL_SPEED * dt) % BACKGROUND_LOOPING_POINT
   groundScroll = (groundScroll + GROUND_SCROLL_SPEED * dt) % VIRTUAL_WIDTH
+  
+  pipe:update(dt)
   bird:update(dt)
+
   love.keyboard.keysPressed = {}
 end
 
@@ -62,7 +67,9 @@ function love.draw()
   push:start()
 
   love.graphics.draw(background, -backgroundScroll, 0)
+  pipe:render()
   love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT - 16)
+  love.graphics.print(tostring(love.keyboard.keysPressed['space']), 0, 0)
   bird:render()
 
   push:finish()
