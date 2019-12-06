@@ -8,7 +8,7 @@ VIRTUAL_HEIGHT = 288
 
 Class = require 'class'
 require 'Bird'
-require 'Pipe'
+require 'PipePair'
 
 -- images
 local background = love.graphics.newImage('assets/background.png')
@@ -20,7 +20,7 @@ local groundScroll = 0
 local BACKGROUND_SCROLL_SPEED = 30
 local GROUND_SCROLL_SPEED = 60
 local BACKGROUND_LOOPING_POINT = 413
-local SPAWN_INTERVAL = 2
+local SPAWN_INTERVAL = 2.5
 
 local bird = Bird()
 local pipes = {}
@@ -62,7 +62,7 @@ function love.update(dt)
 
   spawnTimer = spawnTimer + dt
   if(spawnTimer > SPAWN_INTERVAL) then
-    table.insert(pipes, Pipe())
+    table.insert(pipes, PipePair())
     spawnTimer = 0
   end
   
@@ -73,7 +73,7 @@ function love.update(dt)
   bird:update(dt)
 
   for k, pipe in pairs(pipes) do
-    if pipe.x + pipe.width < 0 then
+    if pipe.remove then
       table.remove(pipes, k)
     end
   end
