@@ -23,7 +23,7 @@ local BACKGROUND_LOOPING_POINT = 413
 local SPAWN_INTERVAL = 2.5
 
 local bird = Bird()
-local pipes = {}
+local pipePairs = {}
 local spawnTimer = 0;
 
 
@@ -62,19 +62,19 @@ function love.update(dt)
 
   spawnTimer = spawnTimer + dt
   if(spawnTimer > SPAWN_INTERVAL) then
-    table.insert(pipes, PipePair())
+    table.insert(pipePairs, PipePair())
     spawnTimer = 0
   end
   
-  for k, pipe in pairs(pipes) do
+  for k, pipe in pairs(pipePairs) do
     pipe:update(dt)
   end
   
   bird:update(dt)
 
-  for k, pipe in pairs(pipes) do
+  for k, pipe in pairs(pipePairs) do
     if pipe.remove then
-      table.remove(pipes, k)
+      table.remove(pipePairs, k)
     end
   end
 
@@ -86,7 +86,7 @@ function love.draw()
 
   love.graphics.draw(background, -backgroundScroll, 0)
   
-  for k, pipe in pairs(pipes) do 
+  for k, pipe in pairs(pipePairs) do 
     pipe:render()
   end
 
