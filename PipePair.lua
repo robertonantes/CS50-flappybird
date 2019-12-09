@@ -3,24 +3,26 @@ require 'Pipe'
 PipePair = Class{}
 
 local PIPE_GAP = 80
+local SCROLL_SPEED = -60 
 
 function PipePair:init()
 
   local upperPipeY = math.random(40, VIRTUAL_HEIGHT / 2);
+  self.x = VIRTUAL_WIDTH
   self.pipes = {
-    ['upper'] = Pipe('top', upperPipeY),
-    ['lower'] = Pipe('bottom', upperPipeY + PIPE_GAP)
+    ['upper'] = Pipe(self.x, upperPipeY, 'top'),
+    ['lower'] = Pipe(self.x, upperPipeY + PIPE_GAP, 'bottom')
   }
   self.remove = false;
 end
 
 function PipePair:update(dt)
-  
-  for k, pipe in pairs(self.pipes) do
-    pipe:update(dt)
-    if(pipe.x + pipe.width < 0) then
-      self.remove = true
-    end
+  if self.x + self.pipes['upper'].width > 0 then 
+    self.x = self.x + SCROLL_SPEED * dt
+    self.pipes['upper'].x = self.x
+    self.pipes['lower'].x = self.x
+  else
+    self.remove = true
   end
 end 
 

@@ -5,20 +5,16 @@ local SCROLL_SPEED = -60
 
 
 
-function Pipe:init(orientation, y)
+function Pipe:init(x, y, orientation)
 
   self.orientation = orientation;
   self.width = PIPE_IMAGE:getWidth()
 
-  self.x = VIRTUAL_WIDTH
+  self.x = x
   self.y = y 
 
 end
 
-
-function Pipe:update(dt)
-  self.x = self.x + SCROLL_SPEED * dt
-end
 
 function Pipe:render()
   local yScale = self.orientation == 'top' and -1 or 1
