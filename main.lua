@@ -9,6 +9,8 @@ VIRTUAL_HEIGHT = 288
 Class = require 'class'
 require 'Bird'
 require 'PipePair'
+require 'states/PlayState'
+require 'StateMachine'
 
 -- images
 local background = love.graphics.newImage('assets/background.png')
@@ -22,11 +24,6 @@ local GROUND_SCROLL_SPEED = 60
 local BACKGROUND_LOOPING_POINT = 413
 local SPAWN_INTERVAL = 2.5
 
-local bird = Bird()
-local pipePairs = {}
-local spawnTimer = 0;
-
-
 function love.load()
   love.graphics.setDefaultFilter('nearest', 'nearest')
   love.window.setTitle('Flappy Bird')
@@ -36,6 +33,12 @@ function love.load()
     fullscreen = false,
     resizabe = true
   })
+
+  gStateMachine = StateMachine{
+    ['play'] = function() return PlayState() end
+  }
+
+  gStateMachine:change('play')
 
   love.keyboard.keysPressed = {}
 end
@@ -60,23 +63,7 @@ function love.update(dt)
   backgroundScroll = (backgroundScroll + BACKGROUND_SCROLL_SPEED * dt) % BACKGROUND_LOOPING_POINT
   groundScroll = (groundScroll + GROUND_SCROLL_SPEED * dt) % VIRTUAL_WIDTH
 
-  spawnTimer = spawnTimer + dt
-  if(spawnTimer > SPAWN_INTERVAL) then
-    table.insert(pipePairs, PipePair())
-    spawnTimer = 0
-  end
-  
-  for k, pipe in pairs(pipePairs) do
-    pipe:update(dt)
-  end
-  
-  bird:update(dt)
-
-  for k, pipe in pairs(pipePairs) do
-    if pipe.remove then
-      table.remove(pipePairs, k)
-    end
-  end
+  gStateMachine:update(dt);
 
   love.keyboard.keysPressed = {}
 end
@@ -85,14 +72,10 @@ function love.draw()
   push:start()
 
   love.graphics.draw(background, -backgroundScroll, 0)
-  
-  for k, pipe in pairs(pipePairs) do 
-    pipe:render()
-  end
+
+  gStateMachine:render()
 
   love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT - 16)
-  
-  bird:render()
 
   push:finish()
 end

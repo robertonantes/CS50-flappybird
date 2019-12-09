@@ -32,7 +32,7 @@ end
 
 function PlayState:render()
   
-  for k, pipe in pairs(pipePairs) do 
+  for k, pipe in pairs(self.pipePairs) do 
     pipe:render()
   end
   self.bird:render()

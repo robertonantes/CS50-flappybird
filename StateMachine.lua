@@ -8,16 +8,21 @@ function StateMachine:init(states)
     exit = function () end
   }
 
-  self state = state or {}
+  self.states = states or {}
   self.current = self.empty
 
 end
 
+function StateMachine:change(stateName)
+  assert(self.states[stateName])
+  self.current = self.states[stateName]()
+end
+
 
 function StateMachine:update(dt)
-  self.current.update(dt)
+  self.current:update(dt)
 end
 
 function StateMachine:render()
-  self.currente.render()
+  self.current:render()
 end
