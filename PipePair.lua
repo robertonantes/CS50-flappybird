@@ -14,6 +14,8 @@ function PipePair:init()
     ['lower'] = Pipe(self.x, upperPipeY + PIPE_GAP, 'bottom')
   }
   self.remove = false;
+  self.scored = false;
+  
 end
 
 function PipePair:update(dt)

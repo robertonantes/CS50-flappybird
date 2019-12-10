@@ -28,6 +28,11 @@ function love.load()
   love.graphics.setDefaultFilter('nearest', 'nearest')
   love.window.setTitle('Flappy Bird')
 
+  smallFont = love.graphics.newFont('assets/font.ttf', 14)
+  love.graphics.setFont(smallFont)
+
+
+
   push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
     vsync = true,
     fullscreen = false,
@@ -76,6 +81,7 @@ function love.draw()
   gStateMachine:render()
 
   love.graphics.draw(ground, -groundScroll, VIRTUAL_HEIGHT - 16)
+
 
   push:finish()
 end

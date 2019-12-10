@@ -6,6 +6,7 @@ function PlayState:init()
   self.bird = Bird()
   self.pipePairs = {}
   self.spawnTimer = 0
+  self.score = 0
 end
 
 function PlayState:update(dt)
@@ -26,6 +27,13 @@ function PlayState:update(dt)
     if pipe.remove then
       table.remove(self.pipePairs, k)
     end
+
+    if(pipe.x < self.bird.x) then
+      if not pipe.scored then
+        self.score = self.score + 1
+        pipe.scored = true
+      end
+    end
   end
 
 end
@@ -36,6 +44,8 @@ function PlayState:render()
     pipe:render()
   end
   self.bird:render()
+  love.graphics.print('Score: ' .. tostring(self.score), 30, 30)
+
 
 end
 
