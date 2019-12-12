@@ -51,6 +51,9 @@ function PlayState:checkForCollision(pair)
   end
 end
 
+function PlayState:enter()
+end
+
 function PlayState:render()
   
   for k, pipe in pairs(self.pipePairs) do 

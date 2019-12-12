@@ -2,9 +2,6 @@ GameOverState = Class{__includes = BaseState}
 
 
 
-function GameOverState:init()
-  self.score = 0
-end
 
 function GameOverState:enter(params)
   self.score = params.score

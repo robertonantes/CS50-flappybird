@@ -2,7 +2,7 @@ require 'Pipe'
 
 PipePair = Class{}
 
-local PIPE_GAP = 80
+local PIPE_GAP = 100
 local SCROLL_SPEED = -60 
 
 function PipePair:init()
