@@ -1,6 +1,7 @@
 PlayState = Class{__includes = BaseState}
 
 local SPAWN_INTERVAL = 2.5
+local PIPE_WIDTH = 70
 
 function PlayState:init()
   self.bird = Bird()
@@ -10,6 +11,7 @@ function PlayState:init()
 end
 
 function PlayState:update(dt)
+
   self.spawnTimer = self.spawnTimer + dt
 
   if(self.spawnTimer > SPAWN_INTERVAL) then
@@ -19,6 +21,7 @@ function PlayState:update(dt)
 
   for k, pipe in pairs(self.pipePairs) do
     pipe:update(dt)
+    self:checkForScore(pipe)
   end
 
   self.bird:update(dt)
@@ -27,15 +30,14 @@ function PlayState:update(dt)
     if pipe.remove then
       table.remove(self.pipePairs, k)
     end
-
-    if(pipe.x < self.bird.x) then
-      if not pipe.scored then
-        self.score = self.score + 1
-        pipe.scored = true
-      end
-    end
   end
+end
 
+function PlayState:checkForScore(pipe)
+  if(pipe.x + PIPE_WIDTH < self.bird.x and not pipe.scored) then
+    self.score = self.score + 1
+    pipe.scored = true
+  end
 end
 
 function PlayState:render()
