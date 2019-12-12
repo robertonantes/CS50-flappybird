@@ -7,6 +7,7 @@ VIRTUAL_WIDTH = 512
 VIRTUAL_HEIGHT = 288
 
 Class = require 'class'
+require 'states/BaseState'
 require 'Bird'
 require 'PipePair'
 require 'states/PlayState'
