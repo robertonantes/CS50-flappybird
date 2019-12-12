@@ -10,6 +10,7 @@ Class = require 'class'
 require 'Bird'
 require 'PipePair'
 require 'states/PlayState'
+require 'states/GameOverState'
 require 'StateMachine'
 
 -- images
@@ -40,7 +41,8 @@ function love.load()
   })
 
   gStateMachine = StateMachine{
-    ['play'] = function() return PlayState() end
+    ['play'] = function() return PlayState() end,
+    ['gameOver'] = function() return GameOverState() end
   }
 
   gStateMachine:change('play')

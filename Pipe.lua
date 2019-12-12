@@ -9,6 +9,7 @@ function Pipe:init(x, y, orientation)
 
   self.orientation = orientation;
   self.width = PIPE_IMAGE:getWidth()
+  self.height = PIPE_IMAGE:getHeight()
 
   self.x = x
   self.y = y 

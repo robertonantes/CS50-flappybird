@@ -19,9 +19,10 @@ function PlayState:update(dt)
     self.spawnTimer = 0
   end
 
-  for k, pipe in pairs(self.pipePairs) do
-    pipe:update(dt)
-    self:checkForScore(pipe)
+  for k, pair in pairs(self.pipePairs) do
+    pair:update(dt)
+    self:checkForScore(pair)
+    self:checkForCollision(pair)
   end
 
   self.bird:update(dt)
@@ -37,6 +38,16 @@ function PlayState:checkForScore(pipe)
   if(pipe.x + PIPE_WIDTH < self.bird.x and not pipe.scored) then
     self.score = self.score + 1
     pipe.scored = true
+  end
+end
+
+function PlayState:checkForCollision(pair)
+  for k, pipe in pairs(pair.pipes) do
+    if self.bird:collides(pipe) then
+      gStateMachine:change('gameOver', {
+        score = self.score
+      })
+    end
   end
 end
 

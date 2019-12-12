@@ -1,16 +1,19 @@
-GameState = Class{__includes = BaseState}
+GameOverState = Class{__includes = BaseState}
 
 
 
-function GameState:init()
+function GameOverState:init()
   self.score = 0
 end
 
-function GameState:enter(params)
+function GameOverState:enter(params)
   self.score = params.score
 end
 
-function GamteState:render()
+function GameOverState:update(dt)
+end
+
+function GameOverState:render()
   love.graphics.print(self.score, VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 2)
   love.graphics.print('SCORE', VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 2 + 50)
 end
