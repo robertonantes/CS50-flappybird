@@ -36,6 +36,16 @@ function love.load()
   bigFont = love.graphics.newFont('assets/font.ttf', 48)
   love.graphics.setFont(smallFont)
 
+  sounds = {
+    ['flap'] = love.audio.newSource('assets/flap.wav', 'static'),
+    ['scored'] = love.audio.newSource('assets/scored.wav', 'static'),
+    ['collision'] = love.audio.newSource('assets/collision.wav', 'static'),
+    ['music'] = love.audio.newSource('assets/marios_way.mp3', 'static')
+  }
+
+  sounds['music']:setLooping(true)
+  sounds['music']:play()
+
 
 
   push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {

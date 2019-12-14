@@ -19,6 +19,13 @@ function PlayState:update(dt)
     self.spawnTimer = 0
   end
 
+  if(self.bird.y + self.bird.height) >= VIRTUAL_HEIGHT - 16 then
+    sounds['collision']:play()
+      gStateMachine:change('gameOver', {
+        score = self.score
+      })
+  end
+
   for k, pair in pairs(self.pipePairs) do
     pair:update(dt)
     self:checkForScore(pair)
@@ -38,17 +45,22 @@ function PlayState:checkForScore(pipe)
   if(pipe.x + PIPE_WIDTH < self.bird.x and not pipe.scored) then
     self.score = self.score + 1
     pipe.scored = true
+    sounds['scored']:play()
   end
 end
 
 function PlayState:checkForCollision(pair)
   for k, pipe in pairs(pair.pipes) do
     if self.bird:collides(pipe) then
+      sounds['collision']:play()
       gStateMachine:change('gameOver', {
         score = self.score
       })
     end
   end
+
+  
+
 end
 
 function PlayState:render()

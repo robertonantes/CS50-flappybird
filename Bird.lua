@@ -21,6 +21,7 @@ function Bird:update(dt)
   self.dy = self.dy + GRAVITY * dt
   if love.keyboard.wasPressed('space') then
     self.dy = -FLAP_VELOCITY
+    sounds['flap']:play()
   end
 
   self.y = self.y + self.dy
@@ -47,6 +48,8 @@ function Bird:collides(pipe)
       return false
     end
   end
+
+  
   
   return true
 
