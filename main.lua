@@ -11,6 +11,7 @@ require 'states/BaseState'
 require 'Bird'
 require 'PipePair'
 require 'states/TitleScreenState'
+require 'states/CountdownState'
 require 'states/PlayState'
 require 'states/GameOverState'
 require 'StateMachine'
@@ -45,6 +46,7 @@ function love.load()
 
   gStateMachine = StateMachine{
     ['titleScreen'] = function() return TitleScreenState() end,
+    ['countdown'] = function() return CountdownState() end,
     ['play'] = function() return PlayState() end,
     ['gameOver'] = function() return GameOverState() end
   }

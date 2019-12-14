@@ -4,6 +4,13 @@ function GameOverState:enter(params)
   self.score = params.score
 end
 
+
+function GameOverState:update(dt)
+  if love.keyboard.wasPressed('return') then
+    gStateMachine:change('countdown')
+  end
+end
+
 function GameOverState:render()
 
   love.graphics.setFont(bigFont)
