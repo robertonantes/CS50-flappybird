@@ -1,13 +1,14 @@
 GameOverState = Class{__includes = BaseState}
 
-
-
-
 function GameOverState:enter(params)
   self.score = params.score
 end
 
 function GameOverState:render()
-  love.graphics.print(self.score, VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 2)
-  love.graphics.print('SCORE', VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 2 + 50)
+
+  love.graphics.setFont(bigFont)
+  love.graphics.printf(self.score, 0, 100, VIRTUAL_WIDTH, 'center')
+
+  love.graphics.setFont(smallFont)
+  love.graphics.printf('Press Enter to play again', 0, 150, VIRTUAL_WIDTH, 'center')
 end

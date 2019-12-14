@@ -10,6 +10,7 @@ Class = require 'class'
 require 'states/BaseState'
 require 'Bird'
 require 'PipePair'
+require 'states/TitleScreenState'
 require 'states/PlayState'
 require 'states/GameOverState'
 require 'StateMachine'
@@ -30,7 +31,8 @@ function love.load()
   love.graphics.setDefaultFilter('nearest', 'nearest')
   love.window.setTitle('Flappy Bird')
 
-  smallFont = love.graphics.newFont('assets/font.ttf', 14)
+  smallFont = love.graphics.newFont('assets/font.ttf', 16)
+  bigFont = love.graphics.newFont('assets/font.ttf', 48)
   love.graphics.setFont(smallFont)
 
 
@@ -42,11 +44,12 @@ function love.load()
   })
 
   gStateMachine = StateMachine{
+    ['titleScreen'] = function() return TitleScreenState() end,
     ['play'] = function() return PlayState() end,
     ['gameOver'] = function() return GameOverState() end
   }
 
-  gStateMachine:change('play')
+  gStateMachine:change('titleScreen')
 
   love.keyboard.keysPressed = {}
 end

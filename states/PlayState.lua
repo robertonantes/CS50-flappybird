@@ -57,7 +57,8 @@ function PlayState:render()
     pipe:render()
   end
   self.bird:render()
-  love.graphics.print('Score: ' .. tostring(self.score), 30, 30)
+  love.graphics.setFont(smallFont)
+  love.graphics.print('Score: ' .. tostring(self.score), 10, 10)
 
 
 end
